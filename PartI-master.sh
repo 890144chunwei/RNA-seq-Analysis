@@ -11,9 +11,9 @@ pwd; hostname; date
 GENOMDIR="/storage/goodell/home/chunweic/mm10/STARgenome"
 FASTQDIR="/storage/goodell/projects/chunweic/220601_Chunwei_RNA_Trx"
 
-for FILES in $FASTQDIR/* ;
+for FILE in $FASTQDIR/*R1.fastq ;
 do
-  STAR --genomeDir $GENOMDIR/ --runMode alignReads --runThreadN 10 --readFilesIn $FASTQDIR/HSPC_germline_WT1_R1.fastq $FASTQDIR/HSPC_germline_WT1_R2.fastq \
+  STAR --genomeDir $GENOMDIR/ --runMode alignReads --runThreadN 10 --readFilesIn $FASTQDIR/$FILE_R1.fastq $FASTQDIR/$FILE_R2.fastq \
   --outFileNamePrefix $FASTQDIR/HSPC_germline_WT1 --outSAMtype BAM Unsorted --outSAMunmapped Within \
   --limitGenomeGenerateRAM 1700000000000;
   samtools sort $FASTQDIR/Tcell_WT3Aligned.out.bam $FASTQDIR/HSPC_germline_WT1
