@@ -8,6 +8,7 @@
 
 pwd; hostname; date
 
+BCLDIR=
 GENOMDIR="/storage/goodell/home/chunweic/mm10/STARgenome"
 FASTQDIR="/storage/goodell/projects/chunweic/220601_Chunwei_RNA_Trx"
 
