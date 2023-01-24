@@ -8,17 +8,27 @@
 
 pwd; hostname; date
 
-BCLDIR=
+BCLDIR="/storage/goodell/bcl/220601_Chunwei_RNA_Trx/Files"
 GENOMDIR="/storage/goodell/home/chunweic/mm10/STARgenome"
-FASTQDIR="/storage/goodell/projects/chunweic/220601_Chunwei_RNA_Trx"
+FASTQDIR="/storage/goodell/fastq/220601_Chunwei_RNA_Trx"
+PROJECTDIR="/storage/goodell/projects/chunweic/220601_Chunwei_RNA_Trx"
 
-for FILE in $FASTQDIR/*R1.fastq ;
+bcl2fastq -R $BCLDIR -i "$BCLDIR/Data/Intensities/BaseCalls/" -o $FASTQDIR --sample-sheet "$PROJECTDIR/SampleSheet_220601.csv" --ignore-missing-bcls --ignore-missing-filter --ignore-missing-positions --ignore-missing-controls --loading-threads 8 -p 16 --tiles s_[1]
+
+cp -r "$FASTQDIR/220601" $PROJECTDIR
+fastqc $PROJECTDIR/*gz
+gunzip $PROJECTDIR/*gz
+multiqc $PROJECTDIR/*zip -o $PROJECTDIR/
+
+for FILE in $PROJECTDIR/*R1.fastq ;
 do
-  STAR --genomeDir $GENOMDIR/ --runMode alignReads --runThreadN 10 --readFilesIn $FASTQDIR/${FILE%_R1.fastq}_R1.fastq $FASTQDIR/${FILE%_R1.fastq}_R2.fastq \
+  STAR --genomeDir $GENOMDIR/ --runMode alignReads --runThreadN 10 --readFilesIn $PROJECTDIR/${FILE%_R1.fastq}_R1.fastq $PROJECTDIR/${FILE%_R1.fastq}_R2.fastq \
   --outFileNamePrefix $FASTQDIR/$FILE_ --outSAMtype BAM Unsorted --outSAMunmapped Within \
   --limitGenomeGenerateRAM 1700000000000;
-  samtools sort $FASTQDIR/$FILE_Aligned.out.bam $FASTQDIR/$FILE
-  featureCounts -T 7 -p -s 2 -t exon -a $GENOMDIR/gencode.vM28.chr_patch_hapl_scaff.annotation.gtf -o $FASTQDIR/$FILE_fc.txt $FASTQDIR/$FILE_sort.bam
-  samtools index $FASTQDIR/$FILE_sort.bam
-  bamCoverage -b $FASTQDIR/$FILE_sort.bam -bl $HOMEDIR/mm10-blacklist.v2.bed -o $FASTQDIR/Coverage/$FILE_cov.bw --normalizeUsing RPKM ;
+  samtools sort $PROJECTDIR/$FILE_Aligned.out.bam $PROJECTDIR/$FILE
+  featureCounts -T 7 -p -s 2 -t exon -a $GENOMDIR/gencode.vM28.chr_patch_hapl_scaff.annotation.gtf -o $PROJECTDIR/$FILE_fc.txt $PROJECTDIR/$FILE_sort.bam
+  samtools index $PROJECTDIR/$FILE_sort.bam
+  bamCoverage -b $PROJECTDIR/$FILE_sort.bam -bl $GENOMDIR/mm10-blacklist.v2.bed -o $PROJECTDIR/Coverage/$FILE_cov.bw --normalizeUsing RPKM ;
 done
+
+rm $PROJECTDIR/*fastq $$PROJECTDIR/*zip $$PROJECTDIR/*out.bamn
