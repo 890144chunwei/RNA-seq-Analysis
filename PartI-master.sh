@@ -13,7 +13,7 @@ FASTQDIR="/storage/goodell/projects/chunweic/220601_Chunwei_RNA_Trx"
 
 for FILE in $FASTQDIR/*R1.fastq ;
 do
-  STAR --genomeDir $GENOMDIR/ --runMode alignReads --runThreadN 10 --readFilesIn $FASTQDIR/$FILE_R1.fastq $FASTQDIR/$FILE_R2.fastq \
+  STAR --genomeDir $GENOMDIR/ --runMode alignReads --runThreadN 10 --readFilesIn $FASTQDIR/${FILE%_R1.fastq}_R1.fastq $FASTQDIR/${FILE%_R1.fastq}_R2.fastq \
   --outFileNamePrefix $FASTQDIR/$FILE_ --outSAMtype BAM Unsorted --outSAMunmapped Within \
   --limitGenomeGenerateRAM 1700000000000;
   samtools sort $FASTQDIR/$FILE_Aligned.out.bam $FASTQDIR/$FILE
