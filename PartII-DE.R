@@ -157,42 +157,5 @@ DE_doxo_HSC$sumwt <- rowSums(DE_doxo_HSC[,9:10])
 DE_doxo_HSC$sumhet <- rowSums(DE_doxo_HSC[,12:13])
 DE_doxo_HSC_f <- filter(DE_doxo_HSC, sumhet - sumwt > 0)
 DE_doxo_HSC_f <- DE_doxo_HSC_f[,-14:-15]
-DE_trx2wk_HSC$sumwt <- rowSums(DE_trx2wk_HSC[,2:3])
-DE_trx2wk_HSC$sumhet <- rowSums(DE_trx2wk_HSC[,4:5])
-DE_trx2wk_HSC_f <- filter(DE_trx2wk_HSC, sumhet - sumwt >0)
-DE_trx2wk_HSC_f <- filter(DE_trx2wk_HSC_f, DE_trx2wk_HSC_f[,5] - DE_trx2wk_HSC_f[,3] >0)
-DE_trx2wk_HSC_f <- DE_trx2wk_HSC_f[,-6:-7]
-write.csv(DE_doxo_DDR, "~/Desktop/DE_DDR_doxo.csv")
 write.csv(DE_HSC_comb, "~/Desktop/DE_HSC_comb.csv")
-aaa <- c(13,14,16,17)
-
-DE_HSC_comb <- merge(DEtrx, DE_doxo_HSC, by=0)
-row.names(DE_HSC_comb) <- DE_HSC_comb[,1]
-DE_HSC_comb<- DE_HSC_comb[,-1:-2]
-which(row.names(DE_HSC_comb) =='BCL2L11')
-DE_HSC_comb <- DE_HSC_comb[-1,]
 pheatmap(log2(DE_HSC_comb[,11:14] + 1), cluster_cols = F, cellwidth = 40, cellheight = 10,border_color = NA,treeheight_row = 15, fontsize_col = 5,fontsize_row = 8, legend_breaks = c(-1.5,0,1.5), scale = 'row')
-row2<-c(6,8,1,10,3,12,18,16,17,4,11,7,2,15,5,13,9,14)
-pheatmap(log2(DE_HSC_comb[row2,3:6] + 1), cluster_cols = F,cluster_rows = F, cellwidth = 40, cellheight = 14,border_color = NA,treeheight_row = 15, fontsize_col = 2,fontsize_row = 14, legend_breaks = c(-1.5,0,1.5), scale = 'row')
-pheatmap(log2(DE_HSC_comb[row2,11:14] + 1), cluster_cols = F, cluster_rows = F, cellwidth = 40, cellheight =14,border_color = NA,treeheight_row = 15, fontsize_col = 5,fontsize_row = 14, legend_breaks = c(-1.5,0,1.5), scale = 'row')
-write.csv(DE_DDR_comb, "~/Desktop/DE_DDR_comb.csv")
-
-
-#DE_DDR_doxo <- DE_DDR[,1:6]
-DE_HSC_trx <- DE_HSC[,1:4]
-row.names(DE_HSC_trx)<- DE_HSC[,1]
-DE_HSC_trx <- filter(DE_HSC_trx, HET1 > WT2, HET1> WT3, HET2> WT2, HET2>WT3)
-
-pheatmap(log2(DE_HSC_trx + 1), cluster_cols = F,cellwidth = 60, cellheight = 10,border_color = NA, fontsize_col = 8,treeheight_row = 15,legend_breaks = c(-1,0,1), fontsize_row = 9, scale = 'row')
-##
-DE_HSC_doxo <- DE_HSC[,6:11]
-DE_HSC_doxo <- DE_HSC_doxo[,-2]
-DE_HSC_doxo <- DE_HSC_doxo[,-3]
-
-DE_HSC_doxo$sum_wt <- rowSums(DE_HSC_doxo[,1:2])
-DE_HSC_doxo$sum_het <- rowSums(DE_HSC_doxo[,3:4])
-DE_HSC_doxo <- filter(DE_HSC_doxo, sum_het - sum_wt>0)
-DE_HSC_doxo <- DE_HSC_doxo[,1:4]
-DE_HSC_doxo <- filter(DE_HSC_doxo, doxo_het2 > doxo_wt1, doxo_het2> doxo_wt3, doxo_het3> doxo_wt1, doxo_het3>doxo_wt3)
-
-pheatmap(log2(DE_HSC_doxo + 1), cluster_cols = F,cellwidth = 60, cellheight = 10,border_color = NA, fontsize_col = 8,treeheight_row = 15,legend_breaks = c(-1,0,1), fontsize_row = 10, scale = 'row')
