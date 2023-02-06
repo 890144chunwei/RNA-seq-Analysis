@@ -14,5 +14,10 @@ Part I. Alignment and read counting (Bash):
 
 Part II. Differential analysis (R):
 -----
-
-
+- [DESeq2](https://github.com/mikelove/DESeq2): Differential analysis taking counts file as input for normalization and statistical inference
+- [ggplot2](https://github.com/tidyverse/ggplot2): For basic QC plotting
+- [dplyr](https://github.com/tidyverse/dplyr): Organize count data for downstream analysis
+- [clusterProfiler](https://github.com/YuLab-SMU/clusterProfiler): Gene set enrichment analysis (GSEA) to identify top-regulated pathways
+- [enrichplot](https://github.com/YuLab-SMU/enrichplot): Figure plotting for GSEA results
+- [EnhancedVolcano](https://github.com/kevinblighe/EnhancedVolcano): Figure plotting of log2-fold-change to P-value
+- [pheatmap](https://github.com/raivokolde/pheatmap): Figure plotting and visualization for expression of specific gene sets 
