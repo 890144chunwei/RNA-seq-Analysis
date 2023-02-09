@@ -31,4 +31,4 @@ do
   bamCoverage -b $PROJECTDIR/$FILE_sort.bam -o $PROJECTDIR/Coverage/$FILE_cov.bw --normalizeUsing RPKM ;
 done
 
-rm $PROJECTDIR/*fastq $$PROJECTDIR/*zip $$PROJECTDIR/*out.bamn
+rm $PROJECTDIR/*fastq $$PROJECTDIR/*zip $$PROJECTDIR/*out.bam
