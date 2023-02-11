@@ -28,7 +28,7 @@ do
   samtools sort $PROJECTDIR/$FILE_Aligned.out.bam $PROJECTDIR/$FILE
   featureCounts -T 7 -p -s 2 -t exon -a $GENOMDIR/gencode.vM28.chr_patch_hapl_scaff.annotation.gtf -o $PROJECTDIR/$FILE_fc.txt $PROJECTDIR/$FILE_sort.bam
   samtools index $PROJECTDIR/$FILE_sort.bam
-  bamCoverage -b $PROJECTDIR/$FILE_sort.bam -o $PROJECTDIR/Coverage/$FILE_cov.bw --normalizeUsing RPKM ;
+  bamCoverage -b $PROJECTDIR/$FILE_sort.bam -o $PROJECTDIR/Coverage/$FILE_cov.bw --normalizeUsing BPM ;
 done
 
 rm $PROJECTDIR/*fastq $PROJECTDIR/*zip $PROJECTDIR/*out.bam
